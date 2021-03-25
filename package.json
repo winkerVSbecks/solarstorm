@@ -1,0 +1,39 @@
+{
+  "name": "r3f-sparks",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "main": "src/index.js",
+  "dependencies": {
+    "@react-three/drei": "^3.11.1",
+    "babel-plugin-glsl": "^1.0.0",
+    "canvas-sketch-util": "^1.10.0",
+    "glsl-blend-soft-light": "^1.0.5",
+    "glsl-film-grain": "^1.0.4",
+    "glsl-noise": "^0.0.0",
+    "glslify": "^7.1.1",
+    "lerp": "1.0.3",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-scripts": "4.0.0",
+    "react-three-fiber": "5.1.4",
+    "three": "0.121.1",
+    "threejs-meshline": "2.0.12",
+    "zustand": "^3.3.3"
+  },
+  "devDependencies": {
+    "typescript": "3.3.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
