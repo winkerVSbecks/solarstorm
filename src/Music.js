@@ -16,6 +16,11 @@ export const useMusicStore = create((set) => ({
     set(() => {
       return { data: mapRange(data, 0, 255, 0, 1) };
     }),
+  progress: 0,
+  setProgress: (progress) =>
+    set(() => {
+      return { progress };
+    }),
 }));
 
 const url = '/XkZZDMkY5C1C.128.mp3';
@@ -30,6 +35,8 @@ function Analyzer({ sound }) {
   // The next frame (useEffect) is guaranteed(!) to access sound ref
   const analyser = useRef();
   const setData = useMusicStore((state) => state.setData);
+  const musicProgress = useMusicStore((state) => state.progress);
+  const setProgress = useMusicStore((state) => state.setProgress);
 
   useFrame(() => {
     if (!analyser.current && sound.current) {
@@ -39,6 +46,16 @@ function Analyzer({ sound }) {
     if (analyser.current) {
       const data = analyser.current.getAverageFrequency();
       setData(data);
+
+      const progress =
+        (Math.max(
+          sound.current.context.currentTime - sound.current._startedAt,
+          0
+        ) *
+          sound.current.playbackRate) /
+        sound.current.buffer.duration;
+
+      setProgress(progress);
     }
   });
 
@@ -54,7 +71,7 @@ const Audio = forwardRef((props, ref) => {
     const sound = ref.current;
     if (sound) {
       sound.setBuffer(buffer);
-      sound.setLoop(true);
+      sound.setLoop(false);
       sound.setVolume(0.5);
       sound.play();
     }
