@@ -7,7 +7,7 @@ import { useMusicStore } from './Music';
 
 //http://www.clicktorelease.com/blog/vertex-displacement-noise-3d-webgl-glsl-three-js/
 
-export function Planet({ mouse }) {
+export function Planet() {
   const ref = useRef();
   const { size } = useThree();
 
@@ -29,8 +29,8 @@ export function Planet({ mouse }) {
         size.width,
         size.height,
       ];
-      ref.current.material.uniforms.u_time.value = 10 * musicMelodyRef.current; // 5 - 10 -15
-      console.log(musicMelodyRef.current);
+      ref.current.material.uniforms.u_time.value = 5 * musicMelodyRef.current; // 5 - 10 -15
+      // console.log(musicMelodyRef.current);
 
       const off = Random.noise1D(state.clock.elapsedTime, 0.25);
 
@@ -45,7 +45,8 @@ export function Planet({ mouse }) {
     <Suspense fallback={null}>
       <mesh ref={ref} scale={[10, 10, 10]}>
         <icosahedronBufferGeometry attach="geometry" args={[1, 60]} />
-        <silkyMaterial attach="material" />
+        {/* <icosahedronBufferGeometry attach="geometry" args={[1, 4]} /> */}
+        <silkyMaterial flatShading attach="material" />
       </mesh>
     </Suspense>
   );

@@ -1,36 +1,16 @@
 import * as THREE from 'three';
-import React, {
-  useState,
-  useCallback,
-  useEffect,
-  useRef,
-  Suspense,
-} from 'react';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { Canvas, extend, useThree, useFrame } from '@react-three/fiber';
-import './styles.css';
-import { Effects } from './Effects';
-import { Sparks } from './Sparks';
-import { SparkStorm } from './SparkStorm';
-import { Particles } from './Particles';
-import { Number } from './Number';
-import { Planet } from './Planet';
-import { Music, MusicProvider } from './Music';
+import React, { useState, useCallback, useRef, Suspense } from 'react';
+import { Canvas, extend } from '@react-three/fiber';
 
+import './styles.css';
 import * as meshline from './MeshLine';
+import { Effects } from './Effects';
+import { Music, MusicProvider } from './Music';
+import { Scene } from './Scene';
+
 extend(meshline);
 
-extend({ OrbitControls });
-
-const Controls = (props) => {
-  const { gl, camera } = useThree();
-  const ref = useRef();
-  useFrame(() => ref.current.update());
-  return <orbitControls ref={ref} args={[camera, gl.domElement]} {...props} />;
-};
-
 export function App() {
-  const [hovered, hover] = useState(false);
   const [down, set] = useState(false);
   const mouse = useRef([0, 0]);
   const onMouseMove = useCallback(
@@ -39,12 +19,6 @@ export function App() {
     []
   );
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-  useEffect(() => {
-    document.body.style.cursor = hovered
-      ? 'pointer'
-      : "url('https://raw.githubusercontent.com/chenglou/react-motion/master/demos/demo8-draggable-list/cursor.png') 39 39, auto";
-  }, [hovered]);
 
   return (
     <Canvas
@@ -58,36 +32,7 @@ export function App() {
       }}>
       <Music />
       <axesHelper />
-      <Controls />
-      <fog attach="fog" args={['white', 50, 190]} />
-      <pointLight distance={100} intensity={4} color="white" />
-      {/* comet */}
-      <Planet mouse={mouse} hover={hover} />
-      <Particles count={isMobile ? 5000 : 10000} mouse={mouse} />
-      <SparkStorm
-        count={500}
-        mouse={mouse}
-        colors={[
-          '#fbe555',
-          '#fb9224',
-          '#f45905',
-          '#be8abf',
-          '#ffeed0',
-          '#feff89',
-        ]}
-      />
-      <Sparks
-        count={20}
-        mouse={mouse}
-        colors={[
-          '#c06995',
-          '#de77c7',
-          '#df86df',
-          '#d998ee',
-          '#ceadf4',
-          '#c6bff9',
-        ]}
-      />
+      <Scene mouse={mouse} isMobile={isMobile} />
       <Effects down={down} />
     </Canvas>
   );

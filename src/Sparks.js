@@ -1,11 +1,10 @@
 import * as THREE from 'three';
 import React, { useRef, useMemo } from 'react';
-import { extend, useFrame, useThree } from '@react-three/fiber';
-import lerp from 'lerp';
-// import * as meshline from 'threejs-meshline';
+import { useFrame, useThree } from '@react-three/fiber';
 import Random from 'canvas-sketch-util/random';
+import { lerp } from 'canvas-sketch-util/math';
 
-const r = () => Random.range(0.2, 1);
+const radiusVariance = () => Random.range(0.2, 1);
 
 function Fatline({ curve, width, color, speed }) {
   const material = useRef();
@@ -32,8 +31,8 @@ export function Sparks({ mouse, count, colors, radius = 10 }) {
     () =>
       new Array(count).fill().map((_, index) => {
         const pos = new THREE.Vector3(
-          Math.sin(0) * radius * r(),
-          Math.cos(0) * radius * r(),
+          Math.sin(0) * radius * radiusVariance(),
+          Math.cos(0) * radius * radiusVariance(),
           0
         );
         const points = new Array(30).fill().map((_, index) => {
@@ -41,8 +40,8 @@ export function Sparks({ mouse, count, colors, radius = 10 }) {
           return pos
             .add(
               new THREE.Vector3(
-                Math.sin(angle) * radius * r(),
-                Math.cos(angle) * radius * r(),
+                Math.sin(angle) * radius * radiusVariance(),
+                Math.cos(angle) * radius * radiusVariance(),
                 0
               )
             )

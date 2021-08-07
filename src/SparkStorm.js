@@ -1,8 +1,5 @@
-import * as THREE from 'three';
 import React, { useRef, useMemo } from 'react';
-import { extend, useFrame, useThree } from '@react-three/fiber';
-// import * as meshline from 'threejs-meshline';
-// import * as meshline from './MeshLine';
+import { useFrame, useThree } from '@react-three/fiber';
 import Random from 'canvas-sketch-util/random';
 import { lerp } from 'canvas-sketch-util/math';
 import {
@@ -15,8 +12,6 @@ import {
   lorenzAttractor,
   lorenzMod2Attractor,
 } from './attractor';
-
-// extend(meshline);
 
 const simulation = () =>
   Random.pick([

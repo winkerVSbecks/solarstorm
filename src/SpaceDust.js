@@ -3,7 +3,7 @@ import React, { useRef, useMemo } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import './styles.css';
 
-export function Particles({ count, mouse }) {
+export function SpaceDust({ count, mouse }) {
   const mesh = useRef();
   const light = useRef();
   const { size, viewport } = useThree();

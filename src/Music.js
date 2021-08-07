@@ -32,8 +32,14 @@ export const useMusicStore = create((set) => ({
     }),
 }));
 
-// const url = '/XkZZDMkY5C1C.128.mp3';
-const url = '/quitters-raga/quitters-raga.mp3';
+/**
+ * 0  - Start           - 0                 - planet + sparks + space ship
+ * 25 - Melody kicks in - 0.213675213675214 - Spark storm + camera shake
+ * 32 - Vocals          - 0.273504273504274 - planet distortion kicks in
+ * 51 - Scratch         - 0.435897435897436 - distort the spaceship
+ * 57 - Beep            - 0.487179487179487 -
+ * 71 - Drop beep       - 0.598290598290598 - planet distortion * 15
+ */
 
 const urls = {
   bass: '/quitters-raga/bass.wav',
@@ -125,7 +131,6 @@ export function Music() {
 
   return (
     <Suspense fallback={null}>
-      {/* <Audio ref={song} url={urls.fullSong} volume={0.5} /> */}
       <AudioLayer track="bass" />
       <AudioLayer track="drums" />
       <AudioLayer track="melody" trackProgress />

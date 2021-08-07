@@ -14,6 +14,7 @@ body,
   -ms-user-select: none;
   user-select: none;
   overflow: hidden;
+  cursor: "url('https://raw.githubusercontent.com/chenglou/react-motion/master/demos/demo8-draggable-list/cursor.png') 39 39, auto";
 }
 
 #root {
@@ -43,5 +44,7 @@ body {
   font-family: 'Sulphur Point', sans-serif;
   color: white;
   font-size: 0.9rem;
-  cursor: url('https://raw.githubusercontent.com/chenglou/react-motion/master/demos/demo8-draggable-list/cursor.png') 39 39, auto;
+  cursor: url('https://raw.githubusercontent.com/chenglou/react-motion/master/demos/demo8-draggable-list/cursor.png')
+      39 39,
+    auto;
 }
