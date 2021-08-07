@@ -2,19 +2,17 @@ import * as THREE from 'three';
 import React, { useRef, useMemo } from 'react';
 import { extend, useFrame, useThree } from '@react-three/fiber';
 import lerp from 'lerp';
-import * as meshline from 'threejs-meshline';
+// import * as meshline from 'threejs-meshline';
 import Random from 'canvas-sketch-util/random';
 
-extend(meshline);
-
-const r = () => Math.max(0.2, Math.random());
+const r = () => Random.range(0.2, 1);
 
 function Fatline({ curve, width, color, speed }) {
   const material = useRef();
   useFrame(() => (material.current.uniforms.dashOffset.value -= speed));
   return (
     <mesh>
-      <meshLine attach="geometry" vertices={curve} />
+      <meshLine attach="geometry" points={curve} />
       <meshLineMaterial
         attach="material"
         ref={material}

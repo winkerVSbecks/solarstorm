@@ -12,13 +12,13 @@ export function Planet({ mouse }) {
   const { size } = useThree();
 
   const musicProgress = useMusicStore((state) => state.progress);
-  const musicDataRef = useRef(useMusicStore.getState().data);
+  const musicMelodyRef = useRef(0);
 
   useEffect(
     () =>
       useMusicStore.subscribe(
-        (data) => (musicDataRef.current = data),
-        (state) => state.data
+        (melody) => (musicMelodyRef.current = melody),
+        (state) => state.melody
       ),
     []
   );
@@ -29,8 +29,8 @@ export function Planet({ mouse }) {
         size.width,
         size.height,
       ];
-      ref.current.material.uniforms.u_time.value = 5 * musicDataRef.current; // 5 - 10 -15
-      console.log(musicProgress);
+      ref.current.material.uniforms.u_time.value = 10 * musicMelodyRef.current; // 5 - 10 -15
+      console.log(musicMelodyRef.current);
 
       const off = Random.noise1D(state.clock.elapsedTime, 0.25);
 
