@@ -8,7 +8,7 @@ import React, {
   Suspense,
 } from 'react';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { Canvas, extend, useThree, useFrame } from 'react-three-fiber';
+import { Canvas, extend, useThree, useFrame } from '@react-three/fiber';
 import './styles.css';
 import { Effects } from './Effects';
 import { Sparks } from './Sparks';
@@ -58,6 +58,7 @@ function App() {
       <Controls />
       <fog attach="fog" args={['white', 50, 190]} />
       <pointLight distance={100} intensity={4} color="white" />
+      {/* comet */}
       <Planet mouse={mouse} hover={hover} />
       <Particles count={isMobile ? 5000 : 10000} mouse={mouse} />
       <Sand

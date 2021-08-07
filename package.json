@@ -5,7 +5,8 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
-    "@react-three/drei": "^3.11.1",
+    "@react-three/drei": "^7.3.1",
+    "@react-three/fiber": "^7.0.6",
     "babel-plugin-glsl": "^1.0.0",
     "canvas-sketch-util": "^1.10.0",
     "glsl-blend-soft-light": "^1.0.5",
@@ -16,7 +17,6 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-scripts": "4.0.0",
-    "react-three-fiber": "5.1.4",
     "three": "0.121.1",
     "threejs-meshline": "2.0.12",
     "zustand": "^3.3.3"

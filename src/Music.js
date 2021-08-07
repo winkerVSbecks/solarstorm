@@ -5,7 +5,7 @@ import React, {
   forwardRef,
   useState,
 } from 'react';
-import { useThree, useLoader, useFrame } from 'react-three-fiber';
+import { useThree, useLoader, useFrame } from '@react-three/fiber';
 import { AudioLoader, AudioListener, AudioAnalyser } from 'three';
 import { mapRange } from 'canvas-sketch-util/math';
 import create from 'zustand';

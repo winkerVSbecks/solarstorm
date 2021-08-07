@@ -1,5 +1,5 @@
 import { ShaderMaterial, Color } from 'three';
-import { extend } from 'react-three-fiber';
+import { extend } from '@react-three/fiber';
 import glsl from 'babel-plugin-glsl/macro';
 
 export default class SilkyMaterial extends ShaderMaterial {

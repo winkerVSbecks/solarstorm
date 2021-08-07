@@ -1,5 +1,5 @@
 import React, { Suspense, useRef, useEffect } from 'react';
-import { useFrame, useThree } from 'react-three-fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import Random from 'canvas-sketch-util/random';
 import { lerp, mapRange } from 'canvas-sketch-util/math';
 import './SilkyMaterial';
