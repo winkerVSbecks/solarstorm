@@ -29,6 +29,21 @@ const distortFactor = (progress) => {
   return 0;
 };
 
+const scale = (progress) => {
+  if (progress > 0.52991452991453 && progress < 0.606837606837607) {
+    return mapRange(
+      progress,
+      0.52991452991453,
+      0.606837606837607,
+      1,
+      0.5,
+      true
+    );
+  }
+
+  return 1;
+};
+
 /**
  * 0  - Start           - 0                 - planet + sparks + space ship
  * 25 - Melody kicks in - 0.213675213675214 - spark storm + camera shake
@@ -43,6 +58,7 @@ export const useMusicStore = create((set) => ({
   drums: 0,
   melody: 0,
   vocals: 0,
+  scale: 1,
   setAudioData: (type, data) =>
     set(() => {
       return { [type]: mapRange(data, 0, 255, 0, 1) };
@@ -64,6 +80,7 @@ export const useMusicStore = create((set) => ({
           progress > 0.598290598290598 && progress < 1.0 ? true : false,
         glitchFactor: glitchFactor(progress),
         distortFactor: distortFactor(progress),
+        scale: scale(progress),
       };
     }),
 }));
