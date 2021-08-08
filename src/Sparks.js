@@ -1,14 +1,35 @@
 import * as THREE from 'three';
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useEffect, useMemo } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import Random from 'canvas-sketch-util/random';
-import { lerp } from 'canvas-sketch-util/math';
+import { lerp, mapRange } from 'canvas-sketch-util/math';
+import { useMusicStore } from './useMusicStore';
 
 const radiusVariance = () => Random.range(0.2, 1);
 
-function Fatline({ curve, width, color, speed }) {
+function FatLine({ curve, width, color, speed }) {
   const material = useRef();
-  useFrame(() => (material.current.uniforms.dashOffset.value -= speed));
+
+  const drums = useRef(0);
+  useEffect(
+    () =>
+      useMusicStore.subscribe(
+        (value) => {
+          drums.current = value;
+        },
+        (state) => state.drums
+      ),
+    []
+  );
+
+  useFrame(() => {
+    material.current.uniforms.dashOffset.value -= speed;
+    if (drums.current) {
+      material.current.uniforms.lineWidth.value =
+        width * mapRange(drums.current, 0.2, 0.4, 0.1, 2, true);
+    }
+  });
+
   return (
     <mesh>
       <meshLine attach="geometry" points={curve} />
@@ -80,7 +101,7 @@ export function Sparks({ mouse, count, colors, radius = 10 }) {
     <group ref={ref}>
       <group position={[-radius * 2, -radius, -10]} scale={[1, 1.3, 1]}>
         {lines.map((props, index) => (
-          <Fatline key={index} {...props} />
+          <FatLine key={index} {...props} />
         ))}
       </group>
     </group>

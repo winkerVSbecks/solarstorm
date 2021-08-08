@@ -2,7 +2,7 @@ import React, { Suspense, useRef, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import Random from 'canvas-sketch-util/random';
 import { lerp, mapRange } from 'canvas-sketch-util/math';
-import { useMusicStore } from './Music';
+import { useMusicStore } from './useMusicStore';
 import './SilkyMaterial';
 
 //http://www.clicktorelease.com/blog/vertex-displacement-noise-3d-webgl-glsl-three-js/
@@ -11,12 +11,14 @@ export function Planet({ distortionScale }) {
   const planet = useRef();
   const { size } = useThree();
 
-  const musicMelodyRef = useRef(0);
+  const melody = useRef(0);
 
   useEffect(
     () =>
       useMusicStore.subscribe(
-        (melody) => (musicMelodyRef.current = melody),
+        (value) => {
+          melody.current = value;
+        },
         (state) => state.melody
       ),
     []
@@ -29,7 +31,7 @@ export function Planet({ distortionScale }) {
         size.height,
       ];
       planet.current.material.uniforms.u_time.value =
-        distortionScale * musicMelodyRef.current; // 5 - 10 -15
+        distortionScale * melody.current; // 5 - 10 -15
 
       const off = Random.noise1D(state.clock.elapsedTime, 0.25);
 

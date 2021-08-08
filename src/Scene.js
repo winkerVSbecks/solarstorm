@@ -6,7 +6,7 @@ import { SparkStorm } from './SparkStorm';
 import { SpaceDust } from './SpaceDust';
 import { Planet } from './Planet';
 import { SpaceShip } from './SpaceShip';
-import { useMusicStore } from './Music';
+import { useMusicStore } from './useMusicStore';
 
 const appStateSelector = (state) => ({
   sparkStorm: state.sparkStorm,

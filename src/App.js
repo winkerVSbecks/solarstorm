@@ -41,12 +41,12 @@ export function App() {
       </Canvas>
 
       {!init && (
-        <div class="overlay">
+        <div className="overlay">
           <button onClick={() => setInit(true)}>Play</button>
         </div>
       )}
 
-      <div class="attribution">
+      <div className="attribution">
         <a href="https://www.youtube.com/watch?v=EeLlAg6GGLc">
           Song — "Quitters Raga" by Gold Panda
         </a>

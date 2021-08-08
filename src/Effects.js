@@ -1,6 +1,7 @@
 import * as THREE from 'three';
-import React, { useRef, useMemo, useEffect } from 'react';
+import React, { useRef, useMemo, useEffect, useState } from 'react';
 import { extend, useThree, useFrame } from '@react-three/fiber';
+import { mapRange } from 'canvas-sketch-util/math';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
@@ -8,6 +9,7 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass';
 import { GlitchPass } from './post/Glitchpass';
 import { WaterPass } from './post/Waterpass';
+import { useMusicStore } from './useMusicStore';
 
 extend({
   EffectComposer,
@@ -19,22 +21,54 @@ extend({
   GlitchPass,
 });
 
-export function Effects({ down }) {
+export function Effects() {
   const composer = useRef();
+  const bloomPass = useRef();
+
   const { scene, gl, size, camera } = useThree();
   const aspect = useMemo(() => new THREE.Vector2(512, 512), []);
+
   useEffect(
     () => void composer.current.setSize(size.width, size.height),
     [size]
   );
-  useFrame(() => composer.current.render(), 1);
+
+  const bass = useRef(0);
+  const glitchFactor = useMusicStore((state) => state.glitchFactor);
+
+  useEffect(
+    () =>
+      useMusicStore.subscribe((state) => {
+        bass.current = state.bass;
+      }),
+    []
+  );
+
+  useFrame(() => {
+    if (bloomPass.current && bass.current) {
+      bloomPass.current.strength = mapRange(
+        bass.current,
+        0,
+        0.25,
+        1.75,
+        2.5,
+        true
+      );
+    }
+
+    composer.current.render();
+  }, 1);
+
   return (
     <effectComposer ref={composer} args={[gl]}>
       <renderPass attachArray="passes" scene={scene} camera={camera} />
-      {/* <waterPass attachArray="passes" factor={0.5} /> */}
-      <unrealBloomPass attachArray="passes" args={[aspect, 2, 1, 0]} />
+      <unrealBloomPass
+        ref={bloomPass}
+        attachArray="passes"
+        args={[aspect, 2, 1, 0]}
+      />
       <filmPass attachArray="passes" args={[aspect, 2, 1, 0]} />
-      <glitchPass attachArray="passes" factor={down ? 1 : 0} />
+      <glitchPass glitchPass attachArray="passes" factor={glitchFactor} />
     </effectComposer>
   );
 }
