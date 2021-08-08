@@ -7,7 +7,7 @@ import { useMusicStore } from './Music';
 
 //http://www.clicktorelease.com/blog/vertex-displacement-noise-3d-webgl-glsl-three-js/
 
-export function Planet() {
+export function Planet({ distortionScale }) {
   const ref = useRef();
   const { size } = useThree();
 
@@ -29,8 +29,8 @@ export function Planet() {
         size.width,
         size.height,
       ];
-      ref.current.material.uniforms.u_time.value = 5 * musicMelodyRef.current; // 5 - 10 -15
-      // console.log(musicMelodyRef.current);
+      ref.current.material.uniforms.u_time.value =
+        distortionScale * musicMelodyRef.current; // 5 - 10 -15
 
       const off = Random.noise1D(state.clock.elapsedTime, 0.25);
 

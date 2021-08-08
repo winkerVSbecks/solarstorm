@@ -23,7 +23,7 @@ export function App() {
   return (
     <Canvas
       pixelRatio={Math.min(2, isMobile ? window.devicePixelRatio : 1)}
-      camera={{ fov: 100, position: [0, 0, 35] }}
+      camera={{ fov: 100, position: [0, 0, 30] }}
       onMouseMove={onMouseMove}
       onMouseUp={() => set(false)}
       onMouseDown={() => set(true)}

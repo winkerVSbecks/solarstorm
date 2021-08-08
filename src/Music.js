@@ -26,15 +26,23 @@ export const useMusicStore = create((set) => ({
       return { [type]: mapRange(data, 0, 255, 0, 1) };
     }),
   progress: 0,
+  sparkStorm: false,
   setProgress: (progress) =>
     set(() => {
-      return { progress };
+      return {
+        progress,
+        sparkStorm: progress > 0.213675213675214 ? true : false,
+        planetDistortion: progress > 0.273504273504274 ? true : false,
+        spaceshipDistortion: progress > 0.435897435897436 ? true : false,
+        beep: progress > 0.487179487179487 ? true : false,
+        planetDistortionMax: progress > 0.598290598290598 ? true : false,
+      };
     }),
 }));
 
 /**
  * 0  - Start           - 0                 - planet + sparks + space ship
- * 25 - Melody kicks in - 0.213675213675214 - Spark storm + camera shake
+ * 25 - Melody kicks in - 0.213675213675214 - spark storm + camera shake
  * 32 - Vocals          - 0.273504273504274 - planet distortion kicks in
  * 51 - Scratch         - 0.435897435897436 - distort the spaceship
  * 57 - Beep            - 0.487179487179487 -
