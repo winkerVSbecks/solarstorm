@@ -24,10 +24,10 @@ const simulation = () =>
   ]);
 
 function Fatline({ radius, simulation, width, color }) {
-  const thing = useRef();
+  const line = useRef();
 
   useFrame(() => {
-    if (thing.current) {
+    if (line.current) {
       const nextPosition = updateAttractor(
         currentPosition,
         radius,
@@ -35,25 +35,20 @@ function Fatline({ radius, simulation, width, color }) {
         0.005
       );
 
-      thing.current.advance(nextPosition);
+      line.current.advance(nextPosition);
     }
   });
-
-  const pointCount = 20;
 
   const [positions, currentPosition] = useMemo(() => createAttractor(5), []);
 
   return (
     <mesh>
-      <meshLine ref={thing} attach="geometry" points={positions} />
+      <meshLine ref={line} attach="geometry" points={positions} />
       <meshLineMaterial
         attach="material"
         transparent
-        // depthTest={false}
         lineWidth={width}
         color={color}
-        // dashArray={0.1}
-        // dashRatio={0.95}
       />
     </mesh>
   );
@@ -62,7 +57,7 @@ function Fatline({ radius, simulation, width, color }) {
 export function SparkStorm({ mouse, count, colors, radius = 10 }) {
   const lines = useMemo(
     () =>
-      new Array(count).fill().map((_, index) => {
+      new Array(count).fill().map(() => {
         return {
           color: Random.pick(colors),
           width: Random.range(0.1, 0.2),

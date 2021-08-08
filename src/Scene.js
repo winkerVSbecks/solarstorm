@@ -1,9 +1,11 @@
+import { Suspense } from 'react';
 import shallow from 'zustand/shallow';
 import { OrbitControls, CameraShake } from '@react-three/drei';
 import { Sparks } from './Sparks';
 import { SparkStorm } from './SparkStorm';
 import { SpaceDust } from './SpaceDust';
 import { Planet } from './Planet';
+import { SpaceShip } from './SpaceShip';
 import { useMusicStore } from './Music';
 
 const appStateSelector = (state) => ({
@@ -55,7 +57,7 @@ export function Scene({ mouse, isMobile }) {
   } = useMusicStore(appStateSelector, shallow);
 
   return (
-    <>
+    <Suspense fallback={null}>
       <OrbitControls makeDefault />
       <CameraShake
         yawFrequency={0.05 * (sparkStorm ? 10 : 1)}
@@ -63,7 +65,7 @@ export function Scene({ mouse, isMobile }) {
         pitchFrequency={0.1 * (sparkStorm ? 2 : 1)}
       />
       <pointLight distance={100} intensity={4} color="white" />
-      {/* spaceship */}
+      <SpaceShip />
       <Planet
         distortionScale={planetDistortionMax ? 15 : planetDistortion ? 10 : 5}
       />
@@ -72,6 +74,6 @@ export function Scene({ mouse, isMobile }) {
       {sparkStorm && (
         <SparkStorm count={500} mouse={mouse} colors={colors.sunnyRainbow} />
       )}
-    </>
+    </Suspense>
   );
 }
