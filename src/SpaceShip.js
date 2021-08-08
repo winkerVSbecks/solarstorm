@@ -2,10 +2,14 @@ import * as THREE from 'three';
 import React, { useRef, useEffect, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
-import { useMusicStore } from './Music';
+import {
+  createAttractor,
+  updateAttractor,
+  lorenzMod2Attractor,
+} from './attractor';
 
-const RADIUS = 15;
-let progress = 0;
+const RADIUS = 20;
+let nextPosition;
 
 export function SpaceShip(props) {
   const group = useRef();
@@ -13,62 +17,38 @@ export function SpaceShip(props) {
     'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/low-poly-spaceship/model.gltf'
   );
 
-  const curve = useMemo(() => {
-    const points = new Array(30).fill().map((_, index) => {
-      const psi = (index / 20) * Math.PI * 2;
-      const theta = Math.sin((index / 20) * Math.PI) * Math.PI;
+  const line = useRef(0);
 
-      return new THREE.Vector3(
-        Math.cos(psi) * Math.sin(theta) * RADIUS,
-        Math.sin(psi) * Math.sin(theta) * RADIUS,
-        Math.cos(theta) * RADIUS
-      );
-    });
-
-    return new THREE.CatmullRomCurve3(points);
-  }, []);
-
-  const musicProgressRef = useRef(0);
-
-  useEffect(
-    () =>
-      useMusicStore.subscribe(
-        (progress) => (musicProgressRef.current = progress),
-        (state) => state.progress
-      ),
+  const [positions, currentPosition] = useMemo(
+    () => createAttractor(30, [0, RADIUS, 0]),
     []
   );
 
   useFrame(() => {
-    if (group.current) {
-      progress += 0.001;
-      if (progress > 1) {
-        progress = 0;
+    if (line.current) {
+      const target = updateAttractor(
+        currentPosition,
+        RADIUS,
+        lorenzMod2Attractor,
+        0.002
+      );
+
+      if (nextPosition) {
+        group.current.position.copy(
+          nextPosition.clone().add(new THREE.Vector3(0, 0, 0))
+        );
+        group.current.lookAt(target);
+
+        line.current.advance(nextPosition);
       }
 
-      const position = curve.getPointAt(
-        progress /* musicProgressRef.current */
-      );
-      const rotation = curve.getTangentAt(
-        progress /* musicProgressRef.current */
-      );
-
-      var target = curve.getPoint(Math.max(0, progress - 0.001));
-
-      group.current.position.copy(position);
-      group.current.lookAt(target);
-      // group.current.rotation.copy(rotation);
+      nextPosition = target;
     }
   });
 
   return (
     <>
-      <group
-        ref={group}
-        scale={[1, 1, 1]}
-        // position={[0, 15, 0]}
-        {...props}
-        dispose={null}>
+      <group ref={group} scale={[1, 1, 1]} {...props} dispose={null}>
         <mesh geometry={nodes.Cube005.geometry} material={materials.Mat0} />
         <mesh geometry={nodes.Cube005_1.geometry} material={materials.Mat1} />
         <mesh geometry={nodes.Cube005_2.geometry} material={materials.Mat2} />
@@ -81,8 +61,14 @@ export function SpaceShip(props) {
         <mesh geometry={nodes.Cube005_6.geometry} material={materials.Window} />
       </group>
       <mesh>
-        <meshLine attach="geometry" points={curve.getPoints(1000)} />
-        <meshLineMaterial attach="material" lineWidth={0.25} color="#0f0" />
+        <meshLine ref={line} attach="geometry" points={positions} />
+        <meshLineMaterial
+          attach="material"
+          lineWidth={0.25}
+          color="#FCEEB5"
+          transparent
+          opacity={0.5}
+        />
       </mesh>
     </>
   );

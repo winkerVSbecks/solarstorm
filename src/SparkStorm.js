@@ -69,18 +69,20 @@ export function SparkStorm({ mouse, count, colors, radius = 10 }) {
     [count]
   );
 
-  const ref = useRef();
+  const storm = useRef();
+
   const { size, viewport } = useThree();
   const aspect = size.width / viewport.width;
+
   useFrame(() => {
-    if (ref.current) {
-      ref.current.rotation.x = lerp(
-        ref.current.rotation.x,
+    if (storm.current) {
+      storm.current.rotation.x = lerp(
+        storm.current.rotation.x,
         0 + mouse.current[1] / aspect / 200,
         0.1
       );
-      ref.current.rotation.y = lerp(
-        ref.current.rotation.y,
+      storm.current.rotation.y = lerp(
+        storm.current.rotation.y,
         0 + mouse.current[0] / aspect / 400,
         0.1
       );
@@ -88,7 +90,7 @@ export function SparkStorm({ mouse, count, colors, radius = 10 }) {
   });
 
   return (
-    <group ref={ref}>
+    <group ref={storm}>
       <group>
         {lines.map((props, index) => (
           <Fatline key={index} {...props} />

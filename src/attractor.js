@@ -1,11 +1,11 @@
 import * as THREE from 'three';
 import Random from 'canvas-sketch-util/random';
 
-export function createAttractor(particleCount) {
+export function createAttractor(length, start) {
   const positions = [];
 
-  const p = Random.onSphere(1);
-  for (let i = 0; i < particleCount; i++) {
+  const p = start ? start : Random.onSphere(1);
+  for (let i = 0; i < length; i++) {
     positions.push(new THREE.Vector3().fromArray(p));
   }
 

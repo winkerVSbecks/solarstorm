@@ -11,7 +11,9 @@ import { Scene } from './Scene';
 extend(meshline);
 
 export function App() {
-  const [down, set] = useState(false);
+  const [down, setDown] = useState(false);
+  const [init, setInit] = useState(false);
+
   const mouse = useRef([0, 0]);
   const onMouseMove = useCallback(
     ({ clientX: x, clientY: y }) =>
@@ -23,8 +25,8 @@ export function App() {
   return (
     <div
       onMouseMove={onMouseMove}
-      onMouseUp={() => set(false)}
-      onMouseDown={() => set(true)}
+      onMouseUp={() => setDown(false)}
+      onMouseDown={() => setDown(true)}
       style={{ width: '100vw', height: '100vh' }}>
       <Canvas
         pixelRatio={Math.min(2, isMobile ? window.devicePixelRatio : 1)}
@@ -32,11 +34,17 @@ export function App() {
         onCreated={({ gl }) => {
           gl.setClearColor(new THREE.Color('#020207'));
         }}>
-        <Music />
+        {init && <Music />}
         <axesHelper />
-        <Scene mouse={mouse} isMobile={isMobile} />
+        <Scene init={init} mouse={mouse} isMobile={isMobile} />
         <Effects down={down} />
       </Canvas>
+
+      {!init && (
+        <div class="overlay">
+          <button onClick={() => setInit(true)}>Play</button>
+        </div>
+      )}
     </div>
   );
 }

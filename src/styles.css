@@ -27,15 +27,6 @@ body,
   box-sizing: border-box;
 }
 
-:root {
-  font-size: 20px;
-}
-
-::selection {
-  background: #2ddab8;
-  color: white;
-}
-
 body {
   margin: 0;
   padding: 0;
@@ -47,4 +38,25 @@ body {
   cursor: url('https://raw.githubusercontent.com/chenglou/react-motion/master/demos/demo8-draggable-list/cursor.png')
       39 39,
     auto;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(12, 15, 19, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  color: #d998ee;
+  background-color: rgba(12, 15, 19, 0.75);
+  border: 1px solid #d998ee;
+  border-radius: 4px;
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  line-height: 1;
 }

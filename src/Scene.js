@@ -47,7 +47,7 @@ const colors = {
   ],
 };
 
-export function Scene({ mouse, isMobile }) {
+export function Scene({ init = false, mouse, isMobile }) {
   const {
     sparkStorm,
     planetDistortion,
@@ -65,7 +65,7 @@ export function Scene({ mouse, isMobile }) {
         pitchFrequency={0.1 * (sparkStorm ? 2 : 1)}
       />
       <pointLight distance={100} intensity={4} color="white" />
-      <SpaceShip />
+      {init && <SpaceShip />}
       <Planet
         distortionScale={planetDistortionMax ? 15 : planetDistortion ? 10 : 5}
       />
