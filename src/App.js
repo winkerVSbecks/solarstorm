@@ -35,7 +35,7 @@ export function App() {
           gl.setClearColor(new THREE.Color('#020207'));
         }}>
         {init && <Music />}
-        <axesHelper />
+        {/* <axesHelper /> */}
         <Scene init={init} mouse={mouse} isMobile={isMobile} />
         <Effects down={down} />
       </Canvas>
@@ -45,6 +45,12 @@ export function App() {
           <button onClick={() => setInit(true)}>Play</button>
         </div>
       )}
+
+      <div class="attribution">
+        <a href="https://www.youtube.com/watch?v=EeLlAg6GGLc">
+          Song — "Quitters Raga" by Gold Panda
+        </a>
+      </div>
     </div>
   );
 }

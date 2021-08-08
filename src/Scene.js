@@ -58,7 +58,12 @@ export function Scene({ init = false, mouse, isMobile }) {
 
   return (
     <Suspense fallback={null}>
-      <OrbitControls makeDefault />
+      <OrbitControls
+        makeDefault
+        enablePan={false}
+        enableRotate={false}
+        enableZoom={false}
+      />
       <CameraShake
         yawFrequency={0.05 * (sparkStorm ? 10 : 1)}
         rollFrequency={0.2 * (sparkStorm ? 2 : 1)}

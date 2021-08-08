@@ -32,7 +32,9 @@ body {
   padding: 0;
   background: #0c0f13;
   overflow: hidden;
-  font-family: 'Sulphur Point', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'avenir next', avenir,
+    'helvetica neue', helvetica, ubuntu, roboto, noto, 'segoe ui', arial,
+    sans-serif;
   color: white;
   font-size: 0.9rem;
   cursor: url('https://raw.githubusercontent.com/chenglou/react-motion/master/demos/demo8-draggable-list/cursor.png')
@@ -59,4 +61,21 @@ button {
   letter-spacing: 0.1em;
   font-size: 0.75rem;
   line-height: 1;
+}
+
+.attribution {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+}
+
+a {
+  text-decoration: none;
+  font-size: 0.75rem;
+  color: #c6bff9;
+  opacity: 0.75;
+}
+
+a:hover {
+  color: #d998ee;
 }
