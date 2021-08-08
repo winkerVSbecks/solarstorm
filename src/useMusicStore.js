@@ -17,6 +17,18 @@ const glitchFactor = (progress) => {
   return 0;
 };
 
+const distortFactor = (progress) => {
+  if (progress > 0.726495726495726 && progress < 0.777777777777778) {
+    return 0.4;
+  } else if (progress > 0.777777777777778 && progress < 0.82051282051282) {
+    return 0.6;
+  } else if (progress > 0.82051282051282 && progress < 0.923076923076923) {
+    return 0.8;
+  }
+
+  return 0;
+};
+
 /**
  * 0  - Start           - 0                 - planet + sparks + space ship
  * 25 - Melody kicks in - 0.213675213675214 - spark storm + camera shake
@@ -41,12 +53,17 @@ export const useMusicStore = create((set) => ({
     set(() => {
       return {
         progress,
-        sparkStorm: progress > 0.213675213675214 ? true : false,
-        planetDistortion: progress > 0.273504273504274 ? true : false,
-        spaceshipDistortion: progress > 0.435897435897436 ? true : false,
-        beep: progress > 0.487179487179487 ? true : false,
-        planetDistortionMax: progress > 0.598290598290598 ? true : false,
+        sparkStorm:
+          progress > 0.213675213675214 && progress < 1.0 ? true : false,
+        planetDistortion:
+          progress > 0.273504273504274 && progress < 1.0 ? true : false,
+        spaceshipDistortion:
+          progress > 0.435897435897436 && progress < 1.0 ? true : false,
+        beep: progress > 0.487179487179487 && progress < 1.0 ? true : false,
+        planetDistortionMax:
+          progress > 0.598290598290598 && progress < 1.0 ? true : false,
         glitchFactor: glitchFactor(progress),
+        distortFactor: distortFactor(progress),
       };
     }),
 }));

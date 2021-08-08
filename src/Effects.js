@@ -62,6 +62,7 @@ export function Effects() {
   return (
     <effectComposer ref={composer} args={[gl]}>
       <renderPass attachArray="passes" scene={scene} camera={camera} />
+      {/* <waterPass attachArray="passes" factor={distortFactor} /> */}
       <unrealBloomPass
         ref={bloomPass}
         attachArray="passes"

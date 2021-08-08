@@ -11,8 +11,9 @@ export function Planet({ distortionScale }) {
   const planet = useRef();
   const { size } = useThree();
 
-  const melody = useRef(0);
+  const distortFactor = useMusicStore((state) => state.distortFactor);
 
+  const melody = useRef(0);
   useEffect(
     () =>
       useMusicStore.subscribe(
@@ -30,8 +31,11 @@ export function Planet({ distortionScale }) {
         size.width,
         size.height,
       ];
-      planet.current.material.uniforms.u_time.value =
-        distortionScale * melody.current; // 5 - 10 -15
+      planet.current.material.uniforms.u_music.value =
+        distortionScale * melody.current;
+
+      planet.current.material.uniforms.u_time.value = state.clock.elapsedTime;
+      planet.current.material.uniforms.u_distort.value = distortFactor;
 
       const off = Random.noise1D(state.clock.elapsedTime, 0.25);
 
