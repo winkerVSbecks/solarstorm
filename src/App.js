@@ -29,7 +29,10 @@ export function App() {
       <Canvas
         pixelRatio={window.devicePixelRatio}
         camera={{ fov: 100, position: [0, 0, 30] }}
-        onCreated={({ gl }) => {
+        onCreated={({ gl, size, camera }) => {
+          if (size.width < 600) {
+            camera.position.z = 45;
+          }
           gl.setClearColor(new THREE.Color('#020207'));
         }}>
         <Suspense fallback={null}>

@@ -59,7 +59,6 @@ const Audio = forwardRef(({ track, volume, ...props }, ref) => {
 
   const buffer = useLoader(AudioLoader, urls[track], null, (xhr) => {
     if (xhr.loaded === xhr.total) {
-      console.log(track, true);
       setLoaded(track, true);
     }
   });
