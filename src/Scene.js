@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import shallow from 'zustand/shallow';
 import { OrbitControls, CameraShake } from '@react-three/drei';
 import { Sparks } from './Sparks';
@@ -48,7 +47,7 @@ const appStateSelector = (state) => ({
   scale: state.scale,
 });
 
-export function Scene({ init = false, mouse, isMobile }) {
+export function Scene({ init = false, mouse }) {
   const {
     sparkStorm,
     planetDistortion,
@@ -58,10 +57,8 @@ export function Scene({ init = false, mouse, isMobile }) {
     scale,
   } = useMusicStore(appStateSelector, shallow);
 
-  console.log(scale);
-
   return (
-    <Suspense fallback={null}>
+    <>
       <OrbitControls
         makeDefault
         enablePan={false}
@@ -79,12 +76,12 @@ export function Scene({ init = false, mouse, isMobile }) {
         <Planet
           distortionScale={planetDistortionMax ? 15 : planetDistortion ? 10 : 5}
         />
-        <SpaceDust count={isMobile ? 5000 : 10000} mouse={mouse} />
+        <SpaceDust count={10000} mouse={mouse} />
         <Sparks count={20} mouse={mouse} colors={colors.malevolentIllusion} />
         {sparkStorm && (
           <SparkStorm count={500} mouse={mouse} colors={colors.sunnyRainbow} />
         )}
       </group>
-    </Suspense>
+    </>
   );
 }

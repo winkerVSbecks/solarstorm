@@ -47,17 +47,34 @@ const scale = (progress) => {
  */
 
 export const useMusicStore = create((set) => ({
+  didLoad: {
+    bass: false,
+    drums: false,
+    melody: false,
+    vocals: false,
+  },
+  init: false,
   bass: 0,
   drums: 0,
   melody: 0,
   vocals: 0,
   scale: 1,
+  progress: 0,
+  sparkStorm: false,
+  setInit: () =>
+    set(() => {
+      return { init: true };
+    }),
   setAudioData: (type, data) =>
     set(() => {
       return { [type]: mapRange(data, 0, 255, 0, 1) };
     }),
-  progress: 0,
-  sparkStorm: false,
+  setLoaded: (type, loaded) =>
+    set((state) => {
+      return {
+        didLoad: { ...state.loaded, [type]: loaded },
+      };
+    }),
   setProgress: (progress) =>
     set(() => {
       return {

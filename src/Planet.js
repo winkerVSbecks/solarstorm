@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import Random from 'canvas-sketch-util/random';
 import { lerp, mapRange } from 'canvas-sketch-util/math';
@@ -47,12 +47,9 @@ export function Planet({ distortionScale }) {
   });
 
   return (
-    <Suspense fallback={null}>
-      <mesh ref={planet} scale={[10, 10, 10]}>
-        <icosahedronBufferGeometry attach="geometry" args={[1, 60]} />
-        {/* <icosahedronBufferGeometry attach="geometry" args={[1, 4]} /> */}
-        <silkyMaterial flatShading attach="material" />
-      </mesh>
-    </Suspense>
+    <mesh ref={planet} scale={[10, 10, 10]}>
+      <icosahedronBufferGeometry args={[1, 60]} />
+      <silkyMaterial />
+    </mesh>
   );
 }
