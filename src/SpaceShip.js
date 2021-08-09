@@ -14,7 +14,8 @@ let nextPosition;
 export function SpaceShip(props) {
   const group = useRef();
   const { nodes, materials } = useGLTF(
-    'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/low-poly-spaceship/model.gltf'
+    '/model.gltf'
+    // 'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/low-poly-spaceship/model.gltf'
   );
 
   const line = useRef(0);
@@ -75,5 +76,6 @@ export function SpaceShip(props) {
 }
 
 useGLTF.preload(
-  'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/low-poly-spaceship/model.gltf'
+  '/model.gltf'
+  // 'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/low-poly-spaceship/model.gltf'
 );
