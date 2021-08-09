@@ -27,7 +27,6 @@ function Analyzer({ track, sound, trackProgress = false }) {
   // The next frame (useEffect) is guaranteed(!) to access sound ref
   const analyser = useRef();
   const setAudioData = useMusicStore((state) => state.setAudioData);
-  const musicProgress = useMusicStore((state) => state.progress);
   const setProgress = useMusicStore((state) => state.setProgress);
 
   useFrame(() => {
@@ -78,7 +77,7 @@ const Audio = forwardRef(({ url, volume, ...props }, ref) => {
     };
   }, [buffer, camera, listener]);
 
-  return <audio ref={ref} args={[listener]} />;
+  return <audio ref={ref} args={[listener]} {...props} />;
 });
 
 export function AudioLayer({ track, trackProgress, quiet = false }) {

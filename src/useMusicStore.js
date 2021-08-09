@@ -10,7 +10,7 @@ import create from 'zustand';
 const glitchFactor = (progress) => {
   if (progress > 0.487179487179487 && progress < 0.495726495726496) {
     return 1;
-  } else if (progress > 0.504273504273504 && progress < 0.52991452991453) {
+  } else if (progress > 0.504273504273504 && progress < 0.52) {
     return 0.5;
   }
 
@@ -30,15 +30,8 @@ const distortFactor = (progress) => {
 };
 
 const scale = (progress) => {
-  if (progress > 0.52991452991453 && progress < 0.606837606837607) {
-    return mapRange(
-      progress,
-      0.52991452991453,
-      0.606837606837607,
-      1,
-      1.5,
-      true
-    );
+  if (progress > 0.5299 && progress < 0.607) {
+    return mapRange(progress, 0.52, 0.61, 1, 1.5, true);
   }
 
   return 1;

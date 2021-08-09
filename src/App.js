@@ -42,7 +42,10 @@ export function App() {
 
       {!init && (
         <div className="overlay">
-          <button onClick={() => setInit(true)}>Play</button>
+          <div>
+            <h1>Solar Storm</h1>
+            <button onClick={() => setInit(true)}>Play</button>
+          </div>
         </div>
       )}
 

@@ -36,10 +36,6 @@ body {
     'helvetica neue', helvetica, ubuntu, roboto, noto, 'segoe ui', arial,
     sans-serif;
   color: white;
-  font-size: 0.9rem;
-  cursor: url('https://raw.githubusercontent.com/chenglou/react-motion/master/demos/demo8-draggable-list/cursor.png')
-      39 39,
-    auto;
 }
 
 .overlay {
@@ -51,16 +47,29 @@ body {
   justify-content: center;
 }
 
+h1 {
+  font-size: 3rem;
+  line-height: 1;
+  margin: 0 0 1rem 0;
+  text-align: center;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #de77c7;
+}
+
 button {
   color: #d998ee;
   background-color: rgba(12, 15, 19, 0.75);
-  border: 1px solid #d998ee;
+  border: 1px solid #c06995;
   border-radius: 4px;
   padding: 1rem 2rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-size: 0.75rem;
   line-height: 1;
+  margin: 0 auto;
+  display: block;
 }
 
 .attribution {
