@@ -30,8 +30,8 @@ const distortFactor = (progress) => {
 };
 
 const scale = (progress) => {
-  if (progress > 0.5299 && progress < 0.607) {
-    return mapRange(progress, 0.52, 0.61, 1, 1.5, true);
+  if (progress > 0.5299 && progress < 0.605) {
+    return mapRange(progress, 0.52, 0.605, 1, 1.5, true);
   }
 
   return 1;
