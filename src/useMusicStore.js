@@ -36,7 +36,7 @@ const scale = (progress) => {
       0.52991452991453,
       0.606837606837607,
       1,
-      0.5,
+      1.5,
       true
     );
   }
@@ -70,14 +70,14 @@ export const useMusicStore = create((set) => ({
       return {
         progress,
         sparkStorm:
-          progress > 0.213675213675214 && progress < 1.0 ? true : false,
+          progress > 0.213675213675214 && progress < 0.95 ? true : false,
         planetDistortion:
-          progress > 0.273504273504274 && progress < 1.0 ? true : false,
+          progress > 0.273504273504274 && progress < 0.95 ? true : false,
         spaceshipDistortion:
-          progress > 0.435897435897436 && progress < 1.0 ? true : false,
-        beep: progress > 0.487179487179487 && progress < 1.0 ? true : false,
+          progress > 0.435897435897436 && progress < 0.95 ? true : false,
+        beep: progress > 0.487179487179487 && progress < 0.95 ? true : false,
         planetDistortionMax:
-          progress > 0.598290598290598 && progress < 1.0 ? true : false,
+          progress > 0.598290598290598 && progress < 0.95 ? true : false,
         glitchFactor: glitchFactor(progress),
         distortFactor: distortFactor(progress),
         scale: scale(progress),
